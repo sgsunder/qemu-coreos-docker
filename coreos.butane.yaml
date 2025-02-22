@@ -1,0 +1,35 @@
+variant: fcos
+version: 1.6.0
+storage:
+  disks:
+  - device: /dev/disk/by-diskseq/2
+    wipe_table: true
+    partitions:
+    - size_mib: 0
+      start_mib: 0
+      label: docker
+  filesystems:
+  - path: /var/lib/docker
+    device: /dev/disk/by-partlabel/docker
+    format: ext4
+    with_mount_unit: true
+systemd:
+  units:
+  - name: docker-tcp.socket
+    enabled: true
+    contents: |
+      [Unit]
+      Description=Docker Socket for the API
+
+      [Socket]
+      ListenStream=2375
+      Service=docker.service
+      BindIPv6Only=both
+
+      [Install]
+      WantedBy=sockets.target
+# passwd:
+#   users:
+#   - name: core
+#     # plaintext password: docker
+#     password_hash: $y$j9T$7tfKfLfzbzUiYznwZSwag.$OH2OFtY13bwTBnvAFZwZxIR8z0WRw3xHIVaRBQgaIY5
