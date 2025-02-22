@@ -1,6 +1,6 @@
 FROM busybox:latest AS image-downloader
 
-ARG COREOS_VERSION="41.20250130.3.0"
+ARG COREOS_VERSION
 RUN wget -O /coreos.qcow2.xz \
   "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/${COREOS_VERSION}/x86_64/fedora-coreos-${COREOS_VERSION}-qemu.x86_64.qcow2.xz"
 RUN unxz /coreos.qcow2.xz

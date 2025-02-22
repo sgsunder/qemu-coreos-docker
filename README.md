@@ -13,9 +13,7 @@ volumes:
   docker_storage:
 services:
   qemu:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/sgsunder/qemu-coreos-docker:latest
     devices:
       - /dev/kvm
       - /dev/net/tun
